@@ -1,4 +1,5 @@
 export const GRID_SIZE = 16;
+export const DEFAULT_HIGH_SCORE = 13;
 
 const STARTING_DIRECTION = { x: 1, y: 0 };
 
@@ -111,6 +112,20 @@ export function getDirectionForKey(key) {
     }
 
     return null;
+}
+
+export function normalizeHighScore(value) {
+    const parsed = Number.parseInt(value, 10);
+
+    if (!Number.isFinite(parsed) || parsed < DEFAULT_HIGH_SCORE) {
+        return DEFAULT_HIGH_SCORE;
+    }
+
+    return parsed;
+}
+
+export function getNextHighScore(score, currentHighScore) {
+    return Math.max(score, normalizeHighScore(currentHighScore));
 }
 
 function cloneSnake(snake) {
