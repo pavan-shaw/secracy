@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import {
+    DEFAULT_HIGH_SCORE,
     GRID_SIZE,
     createFoodPosition,
     createInitialState,
+    getNextHighScore,
+    normalizeHighScore,
     setDirection,
     stepState
 } from "./snake-logic.mjs";
@@ -17,6 +20,7 @@ function runTests() {
     testEdgeWrap();
     testSelfCollision();
     testFoodPlacement();
+    testHighScoreHelpers();
 
     console.log("snake-logic tests passed");
 }
@@ -128,4 +132,12 @@ function testFoodPlacement() {
     const food = createFoodPosition(snake, 4, () => 0);
 
     assert.deepEqual(food, { x: 3, y: 0 });
+}
+
+function testHighScoreHelpers() {
+    assert.equal(normalizeHighScore(null), DEFAULT_HIGH_SCORE);
+    assert.equal(normalizeHighScore("8"), DEFAULT_HIGH_SCORE);
+    assert.equal(normalizeHighScore("21"), 21);
+    assert.equal(getNextHighScore(19, 13), 19);
+    assert.equal(getNextHighScore(7, 13), 13);
 }
