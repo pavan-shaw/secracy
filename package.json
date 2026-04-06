@@ -1,0 +1,31 @@
+{
+  "name": "secracy",
+  "version": "1.0.0",
+  "description": "**Secracy** is a cybersecurity-focused initiative built to help organizations\r detect, prevent, and respond to real-world cyber threats.",
+  "main": "snake-sw.js",
+  "scripts": {
+    "test": "node ./snake-logic.test.mjs",
+    "prepare:native": "node ./scripts/prepare-native.mjs",
+    "cap:sync": "npm run prepare:native && npx cap sync",
+    "cap:open:android": "npm run prepare:native && npx cap open android",
+    "cap:open:ios": "npm run prepare:native && npx cap open ios"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavan-shaw/secracy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pavan-shaw/secracy/issues"
+  },
+  "homepage": "https://github.com/pavan-shaw/secracy#readme",
+  "devDependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/ios": "^8.3.0"
+  }
+}
