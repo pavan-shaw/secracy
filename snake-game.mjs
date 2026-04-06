@@ -173,5 +173,5 @@ function getStatusMessage() {
         return "Use arrow keys, WASD, or the buttons to start.";
     }
 
-    return "Collect food, avoid the walls, and do not run into yourself.";
+    return "Collect food, wrap around the edges, and do not run into yourself.";
 }

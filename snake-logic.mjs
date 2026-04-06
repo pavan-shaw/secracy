@@ -1,15 +1,9 @@
 export const GRID_SIZE = 16;
 
-const STARTING_SNAKE = [
-    { x: 8, y: 8 },
-    { x: 7, y: 8 },
-    { x: 6, y: 8 }
-];
-
 const STARTING_DIRECTION = { x: 1, y: 0 };
 
 export function createInitialState(random = Math.random) {
-    const snake = cloneSnake(STARTING_SNAKE);
+    const snake = createStartingSnake(GRID_SIZE);
 
     return {
         gridSize: GRID_SIZE,
@@ -45,14 +39,14 @@ export function stepState(state, random = Math.random) {
     const direction = { ...state.pendingDirection };
     const head = state.snake[0];
     const nextHead = {
-        x: head.x + direction.x,
-        y: head.y + direction.y
+        x: wrapCoordinate(head.x + direction.x, state.gridSize),
+        y: wrapCoordinate(head.y + direction.y, state.gridSize)
     };
 
     const foundFood = nextHead.x === state.food.x && nextHead.y === state.food.y;
     const occupiedSnake = foundFood ? state.snake : state.snake.slice(0, -1);
 
-    if (isOutOfBounds(nextHead, state.gridSize) || hitsSnake(nextHead, occupiedSnake)) {
+    if (hitsSnake(nextHead, occupiedSnake)) {
         return {
             ...state,
             direction,
@@ -123,6 +117,17 @@ function cloneSnake(snake) {
     return snake.map((segment) => ({ ...segment }));
 }
 
+function createStartingSnake(gridSize) {
+    const centerX = Math.floor(gridSize / 2);
+    const centerY = Math.floor(gridSize / 2);
+
+    return [
+        { x: centerX, y: centerY },
+        { x: centerX - 1, y: centerY },
+        { x: centerX - 2, y: centerY }
+    ];
+}
+
 function isAxisAligned(direction) {
     const x = Math.abs(direction.x);
     const y = Math.abs(direction.y);
@@ -134,15 +139,18 @@ function isOppositeDirection(current, next) {
     return current.x + next.x === 0 && current.y + next.y === 0;
 }
 
-function isOutOfBounds(position, gridSize) {
-    return (
-        position.x < 0 ||
-        position.y < 0 ||
-        position.x >= gridSize ||
-        position.y >= gridSize
-    );
-}
-
 function hitsSnake(position, snake) {
     return snake.some((segment) => segment.x === position.x && segment.y === position.y);
+}
+
+function wrapCoordinate(value, gridSize) {
+    if (value < 0) {
+        return gridSize - 1;
+    }
+
+    if (value >= gridSize) {
+        return 0;
+    }
+
+    return value;
 }

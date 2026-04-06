@@ -14,7 +14,7 @@ function runTests() {
     testDirectionChangeRules();
     testMovement();
     testGrowthAndScoring();
-    testWallCollision();
+    testEdgeWrap();
     testSelfCollision();
     testFoodPlacement();
 
@@ -28,6 +28,7 @@ function testInitialState() {
     assert.equal(state.status, "ready");
     assert.equal(state.score, 0);
     assert.equal(state.snake.length, 3);
+    assert.deepEqual(state.snake[0], { x: Math.floor(GRID_SIZE / 2), y: Math.floor(GRID_SIZE / 2) });
     assert.deepEqual(state.food, { x: 0, y: 0 });
 }
 
@@ -73,7 +74,7 @@ function testGrowthAndScoring() {
     assert.notDeepEqual(next.food, { x: 3, y: 2 });
 }
 
-function testWallCollision() {
+function testEdgeWrap() {
     const state = {
         gridSize: GRID_SIZE,
         snake: [
@@ -90,7 +91,8 @@ function testWallCollision() {
 
     const next = stepState(state, () => 0);
 
-    assert.equal(next.status, "game-over");
+    assert.equal(next.status, "running");
+    assert.deepEqual(next.snake[0], { x: 0, y: 0 });
 }
 
 function testSelfCollision() {

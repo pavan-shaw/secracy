@@ -97,7 +97,7 @@
                     <div class="row g-4 align-items-start">
                         <div class="col-lg-7">
                             <h1 class="h2 fw-bold mb-2">Classic Snake</h1>
-                            <p class="text-muted mb-4">Use arrow keys or WASD to move. Press space to pause, Enter to restart after game over.</p>
+                            <p class="text-muted mb-4">Use arrow keys or WASD to move. Press space to pause, Enter to restart after game over. Crossing an edge wraps to the other side.</p>
 
                             <div id="snake-board" class="game-board" aria-label="Snake game board"></div>
                         </div>
@@ -129,7 +129,7 @@
                             <hr class="my-4">
 
                             <ul class="small text-muted mb-0">
-                                <li>Crossing a boundary ends the game.</li>
+                                <li>Crossing a boundary wraps you to the opposite side.</li>
                                 <li>Running into your body ends the game.</li>
                                 <li>Each food pickup grows the snake and adds one point.</li>
                             </ul>
