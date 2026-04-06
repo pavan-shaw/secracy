@@ -125,7 +125,8 @@ export function normalizeHighScore(value) {
 }
 
 export function getNextHighScore(score, currentHighScore) {
-    return Math.max(score, normalizeHighScore(currentHighScore));
+    const normalizedHighScore = normalizeHighScore(currentHighScore);
+    return score > normalizedHighScore ? score : normalizedHighScore;
 }
 
 function cloneSnake(snake) {
