@@ -68,6 +68,27 @@
             color: #ffffff;
             border-radius: 14px;
         }
+
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: rgba(13, 27, 42, 0.62);
+            padding: 24px;
+            z-index: 1050;
+        }
+
+        .popup-overlay[hidden] {
+            display: none;
+        }
+
+        .popup-card {
+            width: min(100%, 360px);
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 18px 40px rgba(13, 27, 42, 0.22);
+        }
     </style>
 </head>
 <body>
@@ -110,6 +131,13 @@
                                 </div>
                             </div>
 
+                            <div class="stat-card p-4 mb-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-uppercase small">High Score</span>
+                                    <strong id="high-score" class="fs-4">13</strong>
+                                </div>
+                            </div>
+
                             <p id="status" class="mb-4">Use arrow keys, WASD, or the buttons to start.</p>
 
                             <div class="d-flex gap-2 mb-4">
@@ -140,6 +168,15 @@
         </div>
     </section>
 </main>
+
+<div id="game-over-popup" class="popup-overlay" hidden>
+    <div class="card popup-card p-4 text-center">
+        <h2 class="h4 fw-bold mb-2">Game Over</h2>
+        <p class="text-muted mb-3">Top score is <strong id="popup-high-score">13</strong>.</p>
+        <p class="mb-4">Your score: <strong id="popup-score">0</strong></p>
+        <button id="popup-restart-button" class="btn btn-info">Play Again</button>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="snake-game.mjs"></script>
