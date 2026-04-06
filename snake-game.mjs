@@ -1,23 +1,33 @@
 import {
+    DEFAULT_HIGH_SCORE,
     GRID_SIZE,
     createInitialState,
     getDirectionForKey,
+    getNextHighScore,
+    normalizeHighScore,
     setDirection,
     stepState
 } from "./snake-logic.mjs";
 
 const TICK_MS = 150;
+const HIGH_SCORE_STORAGE_KEY = "secracy-snake-high-score";
 
 const boardElement = document.getElementById("snake-board");
 const scoreElement = document.getElementById("score");
+const highScoreElement = document.getElementById("high-score");
 const statusElement = document.getElementById("status");
 const restartButton = document.getElementById("restart-button");
 const pauseButton = document.getElementById("pause-button");
 const controlButtons = document.querySelectorAll("[data-direction]");
+const gameOverPopup = document.getElementById("game-over-popup");
+const popupScoreElement = document.getElementById("popup-score");
+const popupHighScoreElement = document.getElementById("popup-high-score");
+const popupRestartButton = document.getElementById("popup-restart-button");
 
 let state = createInitialState();
 let isPaused = false;
 let tickHandle = null;
+let highScore = loadHighScore();
 
 renderBoard();
 renderState();
@@ -26,6 +36,7 @@ startLoop();
 window.addEventListener("keydown", handleKeydown);
 restartButton.addEventListener("click", restartGame);
 pauseButton.addEventListener("click", togglePause);
+popupRestartButton.addEventListener("click", restartGame);
 
 controlButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -52,6 +63,7 @@ function runTick() {
     }
 
     state = stepState(state);
+    syncHighScore();
     renderState();
 }
 
@@ -152,8 +164,12 @@ function renderState() {
     }
 
     scoreElement.textContent = String(state.score);
+    highScoreElement.textContent = String(highScore);
     pauseButton.textContent = isPaused ? "Resume" : "Pause";
     statusElement.textContent = getStatusMessage();
+    popupScoreElement.textContent = String(state.score);
+    popupHighScoreElement.textContent = String(highScore);
+    gameOverPopup.hidden = state.status !== "game-over";
 }
 
 function getCell(x, y) {
@@ -174,4 +190,35 @@ function getStatusMessage() {
     }
 
     return "Collect food, wrap around the edges, and do not run into yourself.";
+}
+
+function syncHighScore() {
+    if (state.status !== "game-over") {
+        return;
+    }
+
+    const nextHighScore = getNextHighScore(state.score, highScore);
+    if (nextHighScore === highScore) {
+        return;
+    }
+
+    highScore = nextHighScore;
+    saveHighScore(highScore);
+}
+
+function loadHighScore() {
+    try {
+        const stored = window.localStorage.getItem(HIGH_SCORE_STORAGE_KEY);
+        return normalizeHighScore(stored ?? DEFAULT_HIGH_SCORE);
+    } catch {
+        return DEFAULT_HIGH_SCORE;
+    }
+}
+
+function saveHighScore(value) {
+    try {
+        window.localStorage.setItem(HIGH_SCORE_STORAGE_KEY, String(value));
+    } catch {
+        // Ignore storage failures and keep the in-memory score visible.
+    }
 }
