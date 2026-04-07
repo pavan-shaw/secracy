@@ -1,6 +1,6 @@
 # Mobile Release Guide
 
-This repo now includes Capacitor-based native wrappers for the Snake app.
+This folder now includes Capacitor-based native wrappers for the Snake app.
 
 ## Project folders
 
@@ -29,7 +29,7 @@ npm run cap:open:ios
 
 ### Build flow
 
-1. Run `npm run cap:sync`
+1. From `Secracy_app/`, run `npm run cap:sync`
 2. Open `android/` in Android Studio
 3. Update app name, package details, version code, and version name
 4. Configure a release keystore in Android Studio or Gradle signing config
@@ -53,12 +53,13 @@ npm run cap:open:ios
 ### Build flow
 
 1. Move or clone this repo onto a Mac
-2. Run `npm install`
-3. Run `npm run cap:sync`
-4. Run `npm run cap:open:ios`
-5. In Xcode, set signing team, bundle identifier, version, and app icons
-6. Archive the app in Xcode
-7. Upload through Xcode Organizer to App Store Connect
+2. Change into `Secracy_app/`
+3. Run `npm install`
+4. Run `npm run cap:sync`
+5. Run `npm run cap:open:ios`
+6. In Xcode, set signing team, bundle identifier, version, and app icons
+7. Archive the app in Xcode
+8. Upload through Xcode Organizer to App Store Connect
 
 ### Important files
 

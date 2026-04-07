@@ -1,7 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const repoRoot = "C:\\Secracy";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, "..");
 const outputDir = path.join(repoRoot, "native-web");
 const vendorDir = path.join(outputDir, "vendor", "bootstrap");
 
