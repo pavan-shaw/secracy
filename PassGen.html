@@ -1,111 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secracy | Password Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secracy | Password Generator</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: #fff;
-    text-align: center;
-}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-.container {
-    padding: 80px 20px;
-}
+    <style>
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #f4f6f8 40%, #f4f6f8 100%);
+            color: #0d1b2a;
+        }
 
-h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
+        .page-shell {
+            padding: 88px 0 48px;
+        }
 
-.highlight {
-    color: #38bdf8;
-}
+        .hero-card,
+        .info-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(13, 27, 42, 0.08);
+        }
 
-.generator-box {
-    background: #1e293b;
-    padding: 30px;
-    border-radius: 12px;
-    width: 400px;
-    margin: 40px auto;
-    box-shadow: 0 0 20px rgba(56,189,248,0.2);
-}
+        .hero-card {
+            background: #ffffff;
+        }
 
-.password-display {
-    background: #0f172a;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 18px;
-    word-wrap: break-word;
-    margin-bottom: 20px;
-}
+        .generator-box {
+            background: #1b263b;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 24px;
+        }
 
-input[type="number"] {
-    width: 80px;
-    padding: 5px;
-    border-radius: 6px;
-    border: none;
-    text-align: center;
-}
+        .password-display {
+            background: #0d1b2a;
+            border: 1px solid rgba(76, 201, 240, 0.2);
+            border-radius: 12px;
+            color: #f8fafc;
+            min-height: 72px;
+            padding: 16px;
+            font-size: 1rem;
+            word-break: break-all;
+            margin-bottom: 20px;
+        }
 
-.options {
-    text-align: left;
-    margin: 20px 0;
-}
+        .option-list label {
+            display: block;
+            margin-bottom: 10px;
+        }
 
-button {
-    background: #38bdf8;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        .btn-info {
+            background-color: #4cc9f0;
+            border-color: #4cc9f0;
+            color: #0d1b2a;
+            font-weight: 700;
+        }
 
-button:hover {
-    background: #0ea5e9;
-}
+        .btn-info:hover {
+            background-color: #34b8e2;
+            border-color: #34b8e2;
+            color: #0d1b2a;
+        }
 
-.copy-btn {
-    margin-top: 10px;
-    background: #22c55e;
-}
-</style>
+        .badge-security {
+            background: rgba(76, 201, 240, 0.12);
+            color: #1b263b;
+        }
+
+        .tip-list li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h1>Secracy <span class="highlight">Password Generator</span></h1>
-    <p>Generate secure, high-entropy passwords instantly.</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Secracy</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="generator-box">
-        <div class="password-display" id="password">Your password will appear here</div>
-
-        <label>Password Length: </label>
-        <input type="number" id="length" min="6" max="64" value="16">
-
-        <div class="options">
-            <label><input type="checkbox" id="uppercase" checked> Uppercase Letters</label><br>
-            <label><input type="checkbox" id="lowercase" checked> Lowercase Letters</label><br>
-            <label><input type="checkbox" id="numbers" checked> Numbers</label><br>
-            <label><input type="checkbox" id="symbols" checked> Symbols</label>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="founder.html">Founder</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="PassGen.html">Password Generator</a></li>
+                <li class="nav-item"><a class="nav-link" href="Secracy_app/snake.html">Snake Game</a></li>
+            </ul>
         </div>
-
-        <button onclick="generatePassword()">Generate Password</button>
-        <button class="copy-btn" onclick="copyPassword()">Copy to Clipboard</button>
     </div>
-</div>
+</nav>
+
+<main class="page-shell">
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10">
+                <div class="hero-card p-4 p-md-5 mb-4">
+                    <div class="row g-4 align-items-start">
+                        <div class="col-lg-6">
+                            <span class="badge badge-security rounded-pill mb-3 px-3 py-2">Password Hygiene</span>
+                            <h1 class="display-6 fw-bold mb-3">Single Secracy Password Generator</h1>
+                            <p class="lead text-muted mb-4">Generate a stronger password, copy it instantly, and review the basics of password storage, brute-force risk, and MFA.</p>
+
+                            <div class="generator-box">
+                                <div class="password-display" id="password">Your password will appear here</div>
+
+                                <div class="row g-3 align-items-center mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="length" class="form-label fw-semibold text-white">Password Length</label>
+                                        <input type="number" id="length" class="form-control" min="8" max="64" value="18">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="form-label fw-semibold text-white">Strength</label>
+                                        <div id="strength" class="form-control bg-light">Ready</div>
+                                    </div>
+                                </div>
+
+                                <div class="option-list mb-4">
+                                    <label><input type="checkbox" id="uppercase" checked> Uppercase letters</label>
+                                    <label><input type="checkbox" id="lowercase" checked> Lowercase letters</label>
+                                    <label><input type="checkbox" id="numbers" checked> Numbers</label>
+                                    <label><input type="checkbox" id="symbols" checked> Symbols</label>
+                                </div>
+
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button id="generate-button" class="btn btn-info">Generate Password</button>
+                                    <button id="copy-button" class="btn btn-outline-light">Copy to Clipboard</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="info-card p-4 h-100 bg-light">
+                                <h2 class="h4 fw-bold mb-3">Why this matters</h2>
+                                <ul class="tip-list mb-0">
+                                    <li>Long, random passwords slow down brute-force and guessing attacks.</li>
+                                    <li>Each account should have its own unique password to reduce damage from credential reuse.</li>
+                                    <li>Password managers make it practical to store long and unique credentials safely.</li>
+                                    <li>MFA adds another barrier, so a stolen password alone is less useful to an attacker.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100">
+                            <h2 class="h5 fw-bold">Encrypted vs stored password data</h2>
+                            <p class="mb-0 text-muted">Good systems usually do not store passwords in decryptable form. They store salted password hashes, so the original password is not meant to be reversed. Encryption may still protect data in transit or backups, but password verification should rely on strong hashing, not plain reversible storage.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100">
+                            <h2 class="h5 fw-bold">Brute-force and password attacks</h2>
+                            <p class="mb-0 text-muted">Attackers use brute-force, dictionary lists, leaked credentials, and password spraying to break weak logins. Short or reused passwords fall much faster. Longer random passwords raise the cost of these attacks and help contain the impact of breaches.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100">
+                            <h2 class="h5 fw-bold">Why MFA helps</h2>
+                            <p class="mb-0 text-muted">Multi-factor authentication adds a second proof such as an authenticator code, security key, or approval prompt. It does not fix weak passwords, but it makes account takeover harder when a password is phished or reused from another breach.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-card p-4 h-100">
+                            <h2 class="h5 fw-bold">Practical password tips</h2>
+                            <p class="mb-0 text-muted">Use at least 16 characters when possible, generate unique passwords for every service, enable MFA on important accounts, and change credentials quickly if a service reports a breach or suspicious login activity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
 <script>
+const passwordElement = document.getElementById("password");
+const strengthElement = document.getElementById("strength");
+const lengthElement = document.getElementById("length");
+
+document.getElementById("generate-button").addEventListener("click", generatePassword);
+document.getElementById("copy-button").addEventListener("click", copyPassword);
+
+generatePassword();
+
 function generatePassword() {
-    const length = document.getElementById("length").value;
+    const length = Number.parseInt(lengthElement.value, 10);
     const upper = document.getElementById("uppercase").checked;
     const lower = document.getElementById("lowercase").checked;
     const numbers = document.getElementById("numbers").checked;
@@ -123,24 +211,57 @@ function generatePassword() {
     if (symbols) allChars += symbolChars;
 
     if (allChars === "") {
-        alert("Select at least one option!");
+        passwordElement.innerText = "Select at least one option.";
+        strengthElement.innerText = "Unavailable";
         return;
     }
 
+    const safeLength = Math.min(Math.max(length || 18, 8), 64);
+    lengthElement.value = safeLength;
+
     let password = "";
-    for (let i = 0; i < length; i++) {
-        password += allChars.charAt(Math.floor(Math.random() * allChars.length));
+    const randomValues = new Uint32Array(safeLength);
+    window.crypto.getRandomValues(randomValues);
+
+    for (let index = 0; index < safeLength; index += 1) {
+        password += allChars.charAt(randomValues[index] % allChars.length);
     }
 
-    document.getElementById("password").innerText = password;
+    passwordElement.innerText = password;
+    strengthElement.innerText = getStrengthLabel(password, {
+        upper,
+        lower,
+        numbers,
+        symbols
+    });
 }
 
-function copyPassword() {
-    const password = document.getElementById("password").innerText;
-    navigator.clipboard.writeText(password);
-    alert("Password copied!");
+function getStrengthLabel(password, options) {
+    let score = password.length;
+
+    if (options.upper) score += 4;
+    if (options.lower) score += 4;
+    if (options.numbers) score += 4;
+    if (options.symbols) score += 6;
+
+    if (score >= 34) return "Strong";
+    if (score >= 24) return "Good";
+    return "Basic";
+}
+
+async function copyPassword() {
+    const password = passwordElement.innerText;
+
+    if (!password || password === "Select at least one option.") {
+        return;
+    }
+
+    await navigator.clipboard.writeText(password);
+    strengthElement.innerText = "Copied";
 }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
