@@ -1,0 +1,6 @@
+{
+	"appId": "in.secracy.snake",
+	"appName": "Secracy Snake",
+	"webDir": "native-web",
+	"bundledWebRuntime": false
+}

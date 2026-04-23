@@ -1,0 +1,25 @@
+{
+  "name": "Secracy Snake",
+  "short_name": "Snake",
+  "description": "Classic Snake with offline play and high score tracking.",
+  "start_url": "./snake.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6f8",
+  "theme_color": "#0d1b2a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "snake-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "snake-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
