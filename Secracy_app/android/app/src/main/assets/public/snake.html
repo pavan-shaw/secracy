@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d1b2a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Snake">
+    <title>Secracy | Snake</title>
+    <link rel="manifest" href="snake.webmanifest">
+    <link rel="icon" type="image/svg+xml" href="snake-icon.svg">
+    <link rel="apple-touch-icon" href="snake-icon.svg">
+
+    <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            background: #f4f6f8;
+            color: #0d1b2a;
+            min-height: 100vh;
+        }
+
+        .page-shell {
+            padding-top: 88px;
+            padding-bottom: 48px;
+        }
+
+        .game-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(13, 27, 42, 0.08);
+        }
+
+        .game-board {
+            display: grid;
+            gap: 4px;
+            background: #dbe4eb;
+            padding: 10px;
+            border-radius: 14px;
+            aspect-ratio: 1;
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto;
+            touch-action: none;
+            user-select: none;
+        }
+
+        .snake-cell {
+            background: #edf2f7;
+            border-radius: 4px;
+        }
+
+        .snake-head {
+            background: #0d1b2a;
+        }
+
+        .snake-body {
+            background: #1b263b;
+        }
+
+        .snake-food {
+            background: #4cc9f0;
+        }
+
+        .control-pad {
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .control-pad .btn {
+            min-width: 88px;
+            min-height: 64px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 14px;
+        }
+
+        .stat-card {
+            background: #0d1b2a;
+            color: #ffffff;
+            border-radius: 14px;
+        }
+
+        .score-strip {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: rgba(13, 27, 42, 0.62);
+            padding: 24px;
+            z-index: 1050;
+        }
+
+        .popup-overlay[hidden] {
+            display: none;
+        }
+
+        .popup-card {
+            width: min(100%, 360px);
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 18px 40px rgba(13, 27, 42, 0.22);
+        }
+
+        .game-actions .btn {
+            min-height: 54px;
+            font-weight: 600;
+        }
+
+        .install-note {
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 991.98px) {
+            .page-shell {
+                padding-top: 32px;
+                padding-bottom: 32px;
+            }
+
+            .game-card {
+                border-radius: 20px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .score-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .game-card {
+                padding: 1rem !important;
+            }
+
+            .game-board {
+                max-width: min(100vw - 40px, 420px);
+                gap: 3px;
+                padding: 8px;
+            }
+
+            .control-pad {
+                max-width: 100%;
+            }
+
+            .control-pad .btn {
+                width: 100%;
+                min-width: 0;
+                min-height: 68px;
+                font-size: 1.1rem;
+            }
+
+            .control-pad .d-flex {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .game-actions {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .game-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Secracy</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="founder.html">Founder</a></li>
+                <li class="nav-item"><a class="nav-link" href="PassGen.html">Password Generator</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="snake.html">Snake Game</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="page-shell">
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card game-card p-4 p-md-5">
+                    <div class="score-strip">
+                        <div class="stat-card p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-uppercase small">Score</span>
+                                <strong id="score" class="fs-4">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="stat-card p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-uppercase small">Highest Score</span>
+                                <strong id="high-score" class="fs-4">13</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 align-items-start">
+                        <div class="col-lg-7">
+                            <h1 class="h2 fw-bold mb-2">Classic Snake</h1>
+                            <p class="text-muted mb-4">Use arrow keys or WASD to move. Press space to pause, Enter to restart after game over. Crossing an edge wraps to the other side.</p>
+
+                            <div id="snake-board" class="game-board" aria-label="Snake game board"></div>
+                            <p class="install-note text-muted text-center mt-3 mb-0">Swipe on the board or use the buttons below. Add it to your home screen after the first load for offline play on Android or iPhone.</p>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <p id="status" class="mb-4">Use arrow keys, WASD, or the buttons to start.</p>
+
+                            <div class="game-actions d-flex gap-2 mb-4">
+                                <button id="pause-button" class="btn btn-outline-dark">Pause</button>
+                                <button id="restart-button" class="btn btn-info">Restart</button>
+                            </div>
+
+                            <div class="control-pad text-center">
+                                <button class="btn btn-outline-secondary mb-2" data-direction="up">Up</button>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button class="btn btn-outline-secondary" data-direction="left">Left</button>
+                                    <button class="btn btn-outline-secondary" data-direction="down">Down</button>
+                                    <button class="btn btn-outline-secondary" data-direction="right">Right</button>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <ul class="small text-muted mb-0">
+                                <li>Crossing a boundary wraps you to the opposite side.</li>
+                                <li>Running into your body ends the game.</li>
+                                <li>Each food pickup grows the snake and adds one point.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div id="game-over-popup" class="popup-overlay" hidden>
+    <div class="card popup-card p-4 text-center">
+        <h2 class="h4 fw-bold mb-2">Game Over</h2>
+        <p class="text-muted mb-3">Highest score: <strong id="popup-high-score">13</strong></p>
+        <p class="mb-4">Your score: <strong id="popup-score">0</strong></p>
+        <button id="popup-restart-button" class="btn btn-info">Play Again</button>
+    </div>
+</div>
+
+<script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script type="module" src="snake-game.mjs"></script>
+
+</body>
+</html>
